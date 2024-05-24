@@ -10,6 +10,8 @@
 #include <unistd.h>
 #include <chrono>
 #include <poll.h>
+#include <list>
+#include <string>
 
 namespace upnpUtils{
 
@@ -59,17 +61,22 @@ int receiveData(int sock, int timeout_ms){
         printf("[+]Data Received: %s", buffer);
     //}
 }
-int read(int sock){
+std::list<std::string> readSock(int sock){
 
     pollfd fds[1];
   int sockfd = sock;
   fds[0].fd = sockfd;
   fds[0].events = POLLIN;
+  std::list<std::string> dataList;
+
+  char inputBuff[1024];
     for(int ret = poll(fds, 1, 200); ret >0; ret = poll(fds,1,200))
         if(fds[0].revents & POLLIN){
-            receiveData(sockfd, 200);
+            recv(sock, inputBuff, 1024, 0);
+            dataList.push_back(std::string(inputBuff));
             fds[0].revents = 0;
-        }
+    }
+    return dataList;
 }
 
 };//upnpUtils

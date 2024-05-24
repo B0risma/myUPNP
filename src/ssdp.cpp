@@ -10,6 +10,7 @@
 #include <fstream>
 #include <cstdio>
 #include <iostream>
+#include <algorithm>
 
 #include "upnpUtils.h"
 
@@ -38,7 +39,7 @@ SSDPSocket::~SSDPSocket(){
     close(multisock);
 }
 
-int SSDPSocket::searchGateways() const{
+int SSDPSocket::searchGateways(){
     std::string message(MSEARCH_HEADER);
     message.append("HOST: 239.255.255.250:1900\r\n"
 		"ST: urn:schemas-upnp-org:device:InternetGatewayDevice:1\r\n"
@@ -53,14 +54,15 @@ int SSDPSocket::searchGateways() const{
     char buf[256];
 
 
-    int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
+    int inSock = socket(AF_INET, SOCK_DGRAM, 0);
     sockaddr_in si_me{0};
     si_me.sin_family = AF_INET;
     si_me.sin_port = htons(1900);
     si_me.sin_addr.s_addr = inet_addr("192.168.7.60");
-    bind(sockfd, (struct sockaddr*)&si_me, sizeof(si_me));   
-    upnpUtils::read(sockfd);
-    
-    std::cout << buf;
+    bind(inSock, (struct sockaddr*)&si_me, sizeof(si_me));   
+    gtwEndPoints = upnpUtils::readSock(inSock);
+    std::for_each(gtwEndPoints.cbegin(), gtwEndPoints.cend(), [](const std::string &str){
+        std::cout << str << std::endl;
+    });
     return 0;
 }

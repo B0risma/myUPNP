@@ -3,17 +3,21 @@
 
 #include <arpa/inet.h>
 #include <netinet/in.h>
+#include <list>
+#include <string>
 //! SSDP protocol
 class SSDPSocket{
     public:
     SSDPSocket();
     ~SSDPSocket();
 
-    int searchGateways() const;
+    int searchGateways();
+    void parseGtwResponse(const char *response);
     inline bool isValid()const {
         return multisock != -1;
     }
 
     int multisock = -1;
     sockaddr_in multiaddr;
+    std::list<std::string> gtwEndPoints;
 };
