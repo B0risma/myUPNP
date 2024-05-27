@@ -39,13 +39,32 @@ SSDPSocket::~SSDPSocket(){
     close(multisock);
 }
 
+std::string SSDPSocket::getGTWPoint(const std::string &response){
+    std::string gtwAddress{};
+    constexpr auto LOC_STR = "LOCATION:";
+    auto firstPos = response.find("LOCATION:");
+    auto lastPos = response.find('\r', firstPos);
+    if(lastPos == std::string::npos)
+        lastPos = response.find('\n', firstPos);
+    if(firstPos != std::string::npos && lastPos != std::string::npos){
+            gtwAddress = response.substr(firstPos, (lastPos-firstPos));
+            constexpr size_t LOC_STR_SIZE = strlen(LOC_STR); 
+            gtwAddress.erase(gtwAddress.begin(), gtwAddress.begin()+LOC_STR_SIZE);
+            for(auto spaceIdx = gtwAddress.find(' '); spaceIdx != std::string::npos;
+                    spaceIdx = gtwAddress.find(' '))
+                gtwAddress.erase(spaceIdx, 1);
+    }
+    return gtwAddress;
+    }
+
+
 int SSDPSocket::searchGateways(){
     std::string message(MSEARCH_HEADER);
     message.append("HOST: 239.255.255.250:1900\r\n"
 		"ST: urn:schemas-upnp-org:device:InternetGatewayDevice:1\r\n"
 		"MAN: \"ssdp:discover\"\r\n"
 		"MX:1\r\n\r\n");
-    std::cout << message;
+        gtwEndPoints.clear();
     if(sendto(multisock, message.c_str(), strlen(message.c_str()), 0, 
     reinterpret_cast<const sockaddr *>(&multiaddr), sizeof(sockaddr_in)) < 0){
         perror("sendto");
@@ -60,9 +79,11 @@ int SSDPSocket::searchGateways(){
     si_me.sin_port = htons(1900);
     si_me.sin_addr.s_addr = inet_addr("192.168.7.60");
     bind(inSock, (struct sockaddr*)&si_me, sizeof(si_me));   
-    gtwEndPoints = upnpUtils::readSock(inSock);
-    std::for_each(gtwEndPoints.cbegin(), gtwEndPoints.cend(), [](const std::string &str){
-        std::cout << str << std::endl;
-    });
+    std::list<std::string> sockDatas = upnpUtils::readSock(inSock);
+    for(const auto &str : sockDatas){
+        const auto &gtwPoint = getGTWPoint(str);
+        if(gtwPoint.empty()) continue;
+        gtwEndPoints.push_back(gtwPoint);
+    }
     return 0;
 }

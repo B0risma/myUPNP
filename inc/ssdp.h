@@ -16,6 +16,7 @@ class SSDPSocket{
     inline bool isValid()const {
         return multisock != -1;
     }
+    static std::string getGTWPoint(const std::string &response);
 
     int multisock = -1;
     sockaddr_in multiaddr;
