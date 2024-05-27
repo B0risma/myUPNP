@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "7118623d-61eb-4fe4-b625-0fbbbe1d38c2",
+		"name": "UPNP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "35070519"
+	},
+	"item": [
+		{
+			"name": "request gtw IP actions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://192.168.7.1:2828/wanipconn-12.xml/"
+			},
+			"response": []
+		},
+		{
+			"name": "request gtw devices|services",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://192.168.7.1:2828/gateway.xml"
+			},
+			"response": []
+		},
+		{
+			"name": "get parameter example",
+			"protocolProfileBehavior": {
+				"followRedirects": false,
+				"followOriginalHttpMethod": true,
+				"disabledSystemHeaders": {
+					"user-agent": true,
+					"accept": true,
+					"accept-encoding": true,
+					"connection": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "SOAPACTION",
+						"value": "\"urn:schemas-upnp-org:service:WANIPConnection:1#GetExternalIPAddress\""
+					},
+					{
+						"key": "Content-Type",
+						"value": "text/xml; charset=\"utf-8\""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    <?xml\n        version=\"1.0\"\n        ?>\n    <s:Envelope\n        xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"\n        s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n        <s:Body>\n            <u:GetExternalIPAddress\n                xmlns:u=\"urn:schemas-upnp-org:service:WANIPConnection:1\">\n                </u:GetExternalIPAddress>\n            </s:Body>\n        </s:Envelope>\n",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": "http://192.168.7.1:2828/upnp/control/aqrtjthirq/wanipconn-12"
+			},
+			"response": []
+		},
+		{
+			"name": "GetMappingEntry",
+			"protocolProfileBehavior": {
+				"followRedirects": false,
+				"followOriginalHttpMethod": true,
+				"disabledSystemHeaders": {
+					"user-agent": true,
+					"accept": true,
+					"accept-encoding": true,
+					"connection": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "SOAPACTION",
+						"value": "\"urn:schemas-upnp-org:service:WANIPConnection:1#GetGenericPortMappingEntry\""
+					},
+					{
+						"key": "Content-Type",
+						"value": "text/xml; charset=\"utf-8\""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    <?xml\n        version=\"1.0\"\n        ?>\n    <s:Envelope\n        xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"\n        s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n        <s:Body>\n            <u:GetGenericPortMappingEntry\n                xmlns:u=\"urn:schemas-upnp-org:service:WANIPConnection:1\">\n                <NewPortMappingIndex>0</NewPortMappingIndex>\n                </u:GetGenericPortMappingEntry>\n            </s:Body>\n        </s:Envelope>\n",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": "http://192.168.7.1:2828/upnp/control/aqrtjthirq/wanipconn-12"
+			},
+			"response": []
+		},
+		{
+			"name": "AddPortMapping",
+			"protocolProfileBehavior": {
+				"followRedirects": false,
+				"followOriginalHttpMethod": true,
+				"disabledSystemHeaders": {
+					"user-agent": true,
+					"accept": true,
+					"accept-encoding": true,
+					"connection": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "SOAPACTION",
+						"value": "\"urn:schemas-upnp-org:service:WANIPConnection:1#AddPortMapping\""
+					},
+					{
+						"key": "Content-Type",
+						"value": "text/xml; charset=\"utf-8\""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    <?xml\n        version=\"1.0\"\n        ?>\n    <s:Envelope\n        xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"\n        s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n        <s:Body>\n            <u:AddPortMapping\n                xmlns:u=\"urn:schemas-upnp-org:service:WANIPConnection:1\">\n                <NewRemoteHost></NewRemoteHost>\n                <NewExternalPort>8888</NewExternalPort>\n                <NewProtocol>UDP</NewProtocol>\n                <NewInternalPort>8888</NewInternalPort>\n                <NewInternalClient>192.192.192.192</NewInternalClient>\n                <NewEnabled>1</NewEnabled>\n                <NewPortMappingDescription>TEST UPNP RULE</NewPortMappingDescription>\n                <NewLeaseDuration>0</NewLeaseDuration>\n                </u:AddPortMapping>\n            </s:Body>\n        </s:Envelope>\n",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": "http://192.168.7.1:2828/upnp/control/aqrtjthirq/wanipconn-12"
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePortMapping",
+			"protocolProfileBehavior": {
+				"followRedirects": false,
+				"followOriginalHttpMethod": true,
+				"disabledSystemHeaders": {
+					"user-agent": true,
+					"accept": true,
+					"accept-encoding": true,
+					"connection": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "SOAPACTION",
+						"value": "\"urn:schemas-upnp-org:service:WANIPConnection:1#DeletePortMapping\""
+					},
+					{
+						"key": "Content-Type",
+						"value": "text/xml; charset=\"utf-8\""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    <?xml\n        version=\"1.0\"\n        ?>\n    <s:Envelope\n        xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"\n        s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n        <s:Body>\n            <u:DeletePortMapping\n                xmlns:u=\"urn:schemas-upnp-org:service:WANIPConnection:1\">\n                <NewRemoteHost></NewRemoteHost>\n                <NewExternalPort>8888</NewExternalPort>\n                <NewProtocol>UDP</NewProtocol>\n                </u:DeletePortMapping>\n            </s:Body>\n        </s:Envelope>\n",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": "http://192.168.7.1:2828/upnp/control/aqrtjthirq/wanipconn-12"
+			},
+			"response": []
+		}
+	]
+}

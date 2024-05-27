@@ -1,0 +1,51 @@
+M-SEARCH -> parse gatewayEndpoint -> 
+    GET <gtwEndpoint> -> 
+    parse XML response :
+        URLBase, 
+        devices and services = {SCPD_URL, CTRL_URL},
+            port forwarding service = urn:schemas-upnp-org:service:WANIPConnection:1
+    ->
+    GET SCPD_URL for list of actions
+
+    SCPD_URL - description of device
+    CTRL_URL - url for get/set params of device (work ONLY with POST!!!)
+    service - service for using with SOAP requests (aka: <service>#<action>)
+
+
+CTRL device:
+POST by CTRL_URL
+CONTENT-TYPE: text/xml
+SOAPACTION: <service>#<action>
+xml-body
+
+!!!Attention: no line-feed within arg strings
+    only <argument>value</argument>
+    NOT <argument>
+            value
+        </argument>
+
+example request external ip address:
+    POST /upnp/control/aqrtjthirq/wanipconn-12 HTTP/1.1\r\n
+    HOST: 192.168.7.1:2828\r\n
+    CONTENT-LENGTH: 609\r\n
+    CONTENT-TYPE: text/xml; charset="utf-8"\r\n
+    SOAPACTION: "urn:schemas-upnp-org:service:WANIPConnection:1#AddPortMapping"\r\n
+    \r\n
+    <?xml
+        version="1.0"
+        ?>
+    <s:Envelope
+        xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"
+        s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+        <s:Body>
+            <u:GetExternalIPAddress
+                xmlns:u="urn:schemas-upnp-org:service:WANIPConnection:1">
+                </u:GetExternalIPAddress>
+            </s:Body>
+        </s:Envelope>
+
+
+
+
+mappingRequest:
+    GetGenericPostMappingEntry -> AddPortMapping -> GetExternalIPAddress(for success test?)
