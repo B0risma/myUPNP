@@ -11,7 +11,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "http://192.168.7.1:2828/wanipconn-12.xml/"
+				"url": "http://192.168.0.4:1900/WANIPCn.xml"
 			},
 			"response": []
 		},
@@ -20,7 +20,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "http://192.168.7.1:2828/gateway.xml"
+				"url": "http://192.168.0.4:1900/rootDesc.xml"
 			},
 			"response": []
 		},
@@ -57,7 +57,8 @@
 						}
 					}
 				},
-				"url": "http://192.168.7.1:2828/upnp/control/aqrtjthirq/wanipconn-12"
+				"url": "http://192.168.0.4:1900/ctl/IPCon",
+				"description": "External address of gateway?"
 			},
 			"response": []
 		},
@@ -87,14 +88,15 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "    <?xml\n        version=\"1.0\"\n        ?>\n    <s:Envelope\n        xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"\n        s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n        <s:Body>\n            <u:GetGenericPortMappingEntry\n                xmlns:u=\"urn:schemas-upnp-org:service:WANIPConnection:1\">\n                <NewPortMappingIndex>0</NewPortMappingIndex>\n                </u:GetGenericPortMappingEntry>\n            </s:Body>\n        </s:Envelope>\n",
+					"raw": "    <?xml\n        version=\"1.0\"\n        ?>\n    <s:Envelope\n        xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"\n        s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n        <s:Body>\n            <u:GetGenericPortMappingEntry\n                xmlns:u=\"urn:schemas-upnp-org:service:WANIPConnection:1\">\n                <NewPortMappingIndex>8</NewPortMappingIndex>\n                </u:GetGenericPortMappingEntry>\n            </s:Body>\n        </s:Envelope>\n",
 					"options": {
 						"raw": {
 							"language": "xml"
 						}
 					}
 				},
-				"url": "http://192.168.7.1:2828/upnp/control/aqrtjthirq/wanipconn-12"
+				"url": "http://192.168.0.4:1900/ctl/IPCon",
+				"description": "Запрос на просмотр карты проброса портов: NewPortMappingIndex - порядковый номер правила проброса  \nИндекс можно растить до возвращения ошибки(500) сервером"
 			},
 			"response": []
 		},
@@ -124,14 +126,14 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "    <?xml\n        version=\"1.0\"\n        ?>\n    <s:Envelope\n        xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"\n        s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n        <s:Body>\n            <u:AddPortMapping\n                xmlns:u=\"urn:schemas-upnp-org:service:WANIPConnection:1\">\n                <NewRemoteHost></NewRemoteHost>\n                <NewExternalPort>8888</NewExternalPort>\n                <NewProtocol>UDP</NewProtocol>\n                <NewInternalPort>8888</NewInternalPort>\n                <NewInternalClient>192.192.192.192</NewInternalClient>\n                <NewEnabled>1</NewEnabled>\n                <NewPortMappingDescription>TEST UPNP RULE</NewPortMappingDescription>\n                <NewLeaseDuration>0</NewLeaseDuration>\n                </u:AddPortMapping>\n            </s:Body>\n        </s:Envelope>\n",
+					"raw": "    <?xml\n        version=\"1.0\"\n        ?>\n    <s:Envelope\n        xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"\n        s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n        <s:Body>\n            <u:AddPortMapping\n                xmlns:u=\"urn:schemas-upnp-org:service:WANIPConnection:1\">\n                <NewRemoteHost></NewRemoteHost>\n                <NewExternalPort>8888</NewExternalPort>\n                <NewProtocol>UDP</NewProtocol>\n                <NewInternalPort>8888</NewInternalPort>\n                <NewInternalClient>192.168.7.60</NewInternalClient>\n                <NewEnabled>1</NewEnabled>\n                <NewPortMappingDescription>TEST UPNP RULE</NewPortMappingDescription>\n                <NewLeaseDuration>0</NewLeaseDuration>\n                </u:AddPortMapping>\n            </s:Body>\n        </s:Envelope>\n",
 					"options": {
 						"raw": {
 							"language": "xml"
 						}
 					}
 				},
-				"url": "http://192.168.7.1:2828/upnp/control/aqrtjthirq/wanipconn-12"
+				"url": "http://192.168.0.4:1900/ctl/IPCon"
 			},
 			"response": []
 		},
@@ -168,7 +170,7 @@
 						}
 					}
 				},
-				"url": "http://192.168.7.1:2828/upnp/control/aqrtjthirq/wanipconn-12"
+				"url": "http://192.168.0.4:1900/ctl/IPCon"
 			},
 			"response": []
 		}

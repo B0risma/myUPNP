@@ -48,4 +48,5 @@ example request external ip address:
 
 
 mappingRequest:
-    GetGenericPostMappingEntry -> AddPortMapping -> GetExternalIPAddress(for success test?)
+    GetGenericPostMappingEntry(итеративно поискать себя в карте проброса) -> AddPortMapping(если не нашел - добавь)
+        по факту можно только AddPortMapping вызвать
