@@ -62,6 +62,7 @@ std::string SSDPSocket::getGTWPoint(const std::string &response){
 
 
 int SSDPSocket::searchGateways(){
+    searching = true;
     std::string message(MSEARCH_HEADER);
     message+=SEARCH_BODY;
         gtwEndPoints.clear();
@@ -94,5 +95,6 @@ int SSDPSocket::searchGateways(){
         gtwEndPoints.push_back(gtwPoint);
     }
     close(inSock);
+    searching = false;
     return 0;
 }

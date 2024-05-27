@@ -45,7 +45,7 @@ void printDevDescr(const UPNPDev *device){
     printf("descrUrl: %s\n", device->descURL);
     printf("st: %s\n", device->st);
     printf("usn: %s\n", device->usn);
-    printf("buffer: %c\n", device->buffer);
+    printf("buffer: %s\n", device->buffer);
     printf("scope_id: %d\n", device->scope_id);
 }
 
@@ -60,6 +60,7 @@ int receiveData(int sock, int timeout_ms){
         recvfrom(sock, buffer, 1024, 0, (struct sockaddr*)& si_other, &addrLen);
         printf("[+]Data Received: %s", buffer);
     //}
+    return 0;
 }
 std::list<std::string> readSock(int sock){
 
@@ -70,11 +71,12 @@ std::list<std::string> readSock(int sock){
   std::list<std::string> dataList;
 
   char inputBuff[1024];
-    for(int ret = poll(fds, 1, 200); ret >0; ret = poll(fds,1,200))
+    for(int ret = poll(fds, 1, 200); ret >0; ret = poll(fds,1,200)){
         if(fds[0].revents & POLLIN){
             recv(sock, inputBuff, 1024, 0);
             dataList.push_back(std::string(inputBuff));
             fds[0].revents = 0;
+        }
     }
     return dataList;
 }

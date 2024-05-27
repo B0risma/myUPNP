@@ -18,6 +18,7 @@ class SSDPSocket{
     }
     static std::string getGTWPoint(const std::string &response);
 
+    bool searching = false;
     int multisock = -1;
     sockaddr_in multiaddr;
     std::list<std::string> gtwEndPoints;
